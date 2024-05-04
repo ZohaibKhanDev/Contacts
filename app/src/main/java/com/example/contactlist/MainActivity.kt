@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -40,12 +41,15 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Call
 import androidx.compose.material.icons.outlined.Message
 import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material.icons.outlined.Videocam
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -53,6 +57,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -64,6 +69,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -96,13 +102,14 @@ import kotlin.random.Random
 class MainActivity : ComponentActivity() {
     var contactItems: List<Triple<String, String, String?>> by mutableStateOf(emptyList())
     var darkMode by mutableStateOf(false)
+
     @OptIn(ExperimentalFoundationApi::class)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
 
-            ContactListTheme (darkTheme = darkMode){
+            ContactListTheme(darkTheme = darkMode) {
                 Scaffold {
 
                     val navController = rememberNavController()
@@ -119,15 +126,11 @@ class MainActivity : ComponentActivity() {
 
 
                         composable(Screen.ContatsDetail.route + "/{name}/{num}",
-                            arguments = listOf(
-                                navArgument("name") {
-                                    type = StringType
-                                },
-                                navArgument("num") {
-                                    type = StringType
-                                }
-                            )
-                        ) {
+                            arguments = listOf(navArgument("name") {
+                                type = StringType
+                            }, navArgument("num") {
+                                type = StringType
+                            })) {
                             val name = it.arguments?.getString("name")
                             val num = it.arguments?.getString("num")
                             ContactDetail(navController = navController, num = num, name = name)
@@ -161,11 +164,7 @@ class MainActivity : ComponentActivity() {
         val contactsList = mutableListOf<Triple<String, String, String?>>()
         val contentResolver = contentResolver
         val cursor = contentResolver.query(
-            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-            null,
-            null,
-            null,
-            null
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null
         )
         cursor?.use {
             while (it.moveToNext()) {
@@ -179,6 +178,7 @@ class MainActivity : ComponentActivity() {
         }
         return contactsList
     }
+
     private fun toggleDarkMode() {
         darkMode = !darkMode
     }
@@ -205,7 +205,7 @@ class MainActivity : ComponentActivity() {
             }
 
 
-        Scaffold ( topBar = {
+        Scaffold(topBar = {
             LargeTopAppBar(title = {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -224,12 +224,10 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.clickable { },
                             color = Color(0XFF00961e)
                         )
-                        Text(
-                            text = "Contacts",
+                        Text(text = "Contacts",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
-                            modifier = Modifier.clickable { navController.navigate(Screen.Contacts.route) }
-                        )
+                            modifier = Modifier.clickable { navController.navigate(Screen.Contacts.route) })
                     }
 
                 }
@@ -238,7 +236,10 @@ class MainActivity : ComponentActivity() {
             }, colors = TopAppBarDefaults.topAppBarColors(Color.White), actions = {
                 Icon(imageVector = Icons.Outlined.MoreVert, contentDescription = "")
             }, navigationIcon = {
-                Text(text = "Edit", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.clickable {  } )
+                Text(text = "Edit",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.clickable { })
 
             })
         }, floatingActionButton = {
@@ -262,9 +263,11 @@ class MainActivity : ComponentActivity() {
 
         }) {
             val bottom = rememberModalBottomSheetState()
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White)
+            ) {
                 AnimatedVisibility(
                     visible = phone
                 ) {
@@ -303,13 +306,11 @@ class MainActivity : ComponentActivity() {
                                 enabled = true,
                                 trailingIcon = {
                                     if (phonetext.length > 11) {
-                                        Icon(
-                                            imageVector = Icons.Default.Call,
+                                        Icon(imageVector = Icons.Default.Call,
                                             contentDescription = "",
                                             Modifier.clickable {
                                                 if (ActivityCompat.checkSelfPermission(
-                                                        context,
-                                                        Manifest.permission.CALL_PHONE
+                                                        context, Manifest.permission.CALL_PHONE
                                                     ) == PackageManager.PERMISSION_GRANTED
                                                 ) {
                                                     initiateCall(context, phonetext)
@@ -328,10 +329,10 @@ class MainActivity : ComponentActivity() {
                                     }
 
 
-                                }, leadingIcon = {
+                                },
+                                leadingIcon = {
                                     if (phonetext.length > 11) {
-                                        Icon(
-                                            imageVector = Icons.Outlined.Add,
+                                        Icon(imageVector = Icons.Outlined.Add,
                                             contentDescription = "",
                                             modifier = Modifier.clickable {
                                                 navController.navigate(
@@ -347,7 +348,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 },
 
-                            )
+                                )
                         }
 
                     }
@@ -370,15 +371,16 @@ fun ContactList(
 ) {
     var textField by remember {
         mutableStateOf("")
-    }
-    /*  val filteredContacts = if (textField.isBlank()) {
+    }/*  val filteredContacts = if (textField.isBlank()) {
           contact
       } else {
           contact.filter {
               it.first.contains(textField, ignoreCase = true) || it.second.contains(textField)
           }
       }*/
-
+    var floatingButton by remember {
+        mutableStateOf(false)
+    }
     val filteredContacts = if (textField.isBlank()) {
         contact
     } else {
@@ -401,8 +403,7 @@ fun ContactList(
                     Text(text = "Phone",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
-                        modifier = Modifier.clickable { navController.navigate(Screen.Phone.route) }
-                    )
+                        modifier = Modifier.clickable { navController.navigate(Screen.Phone.route) })
                     Text(
                         text = "Contacts",
                         fontSize = 16.sp,
@@ -447,7 +448,8 @@ fun ContactList(
                             contentDescription = "",
                             Modifier.size(23.dp)
                         )
-                    }, singleLine = true,
+                    },
+                    singleLine = true,
 
                     )
             }
@@ -461,7 +463,9 @@ fun ContactList(
     }, floatingActionButton = {
 
         Card(
-            modifier = Modifier.size(50.dp),
+            modifier = Modifier
+                .size(50.dp)
+                .clickable { floatingButton = !floatingButton },
             colors = CardDefaults.cardColors(Color.White),
             shape = CircleShape,
             elevation = CardDefaults.cardElevation(5.dp)
@@ -521,6 +525,46 @@ fun ContactList(
                         }
                     }
 
+                    if (floatingButton) {
+                        var name by remember {
+                            mutableStateOf("")
+                        }
+
+                        var number by remember {
+                            mutableStateOf("")
+                        }
+                        val scope = rememberCoroutineScope()
+                        val context= LocalContext.current
+                        AlertDialog(
+                            onDismissRequest = { floatingButton },
+                            confirmButton = {
+
+                                Text(text = "Save",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    modifier = Modifier.clickable { navController.navigate(Screen.Contacts.route)
+                                        scope.launch {
+                                        Toast.makeText(context,"Contact Saved", Toast.LENGTH_SHORT).show()
+
+                                        }
+                                     })
+                            },
+                            title = {
+                                OutlinedTextField(value = name, onValueChange = {
+                                    name = it
+                                }, placeholder = {
+                                    Text(text = "Name")
+                                }, singleLine = true)
+                            },
+                            text = {
+                                OutlinedTextField(value = number, onValueChange = {
+                                    number = it
+                                }, placeholder = {
+                                    Text(text = "Enter Number")
+                                }, singleLine = true)
+                            },
+                        )
+                    }
 
                     Column {
 
@@ -540,8 +584,7 @@ fun ContactList(
 @Composable
 fun ContactDetail(navController: NavController, num: String?, name: String?) {
 
-    val context = LocalContext.current
-    /* val requestPermissionLauncher = rememberLauncherForActivityResult(
+    val context = LocalContext.current/* val requestPermissionLauncher = rememberLauncherForActivityResult(
          contract = ActivityResultContracts.RequestPermission()
      ) { isGranted: Boolean ->
          if (isGranted) {
@@ -561,23 +604,26 @@ fun ContactDetail(navController: NavController, num: String?, name: String?) {
             }
         }
 
-
+    var star by remember {
+        mutableStateOf(false)
+    }
 
     Scaffold(topBar = {
         TopAppBar(title = { }, navigationIcon = {
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
+            Icon(imageVector = Icons.Default.ArrowBack,
                 contentDescription = "",
                 modifier = Modifier.clickable { navController.popBackStack() })
         }, colors = TopAppBarDefaults.topAppBarColors(Color.White),
 
             actions = {
-                Icon(imageVector = Icons.Outlined.StarOutline, contentDescription = "")
+                Icon(imageVector = if (star) Icons.Filled.Star else Icons.Outlined.StarOutline,
+                    contentDescription = "",
+                    modifier = Modifier.clickable { star = !star })
                 Spacer(modifier = Modifier.width(20.dp))
                 Icon(
                     imageVector = Icons.Outlined.MoreVert,
                     contentDescription = "",
-                    modifier = Modifier.clickable { })
+                )
 
 
             })
@@ -588,7 +634,8 @@ fun ContactDetail(navController: NavController, num: String?, name: String?) {
                 .padding(it.calculateTopPadding()),
             verticalArrangement = Arrangement.spacedBy(
                 15.dp
-            ), horizontalAlignment = Alignment.CenterHorizontally
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
                 modifier = Modifier
@@ -608,9 +655,7 @@ fun ContactDetail(navController: NavController, num: String?, name: String?) {
             }
             num?.replace("(", "")?.let { it1 ->
                 Text(
-                    text = it1,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.SemiBold
+                    text = it1, fontSize = 24.sp, fontWeight = FontWeight.SemiBold
                 )
             }
 
@@ -629,11 +674,9 @@ fun ContactDetail(navController: NavController, num: String?, name: String?) {
                     contentAlignment = Alignment.Center
                 ) {
 
-                    Icon(
-                        imageVector = Icons.Default.Call,
+                    Icon(imageVector = Icons.Default.Call,
                         contentDescription = "",
-                        modifier = Modifier
-                            .clickable {
+                        modifier = Modifier.clickable {
                                 /*   if (ContextCompat.checkSelfPermission(
                                            context,
                                            Manifest.permission.CALL_PHONE
@@ -646,8 +689,7 @@ fun ContactDetail(navController: NavController, num: String?, name: String?) {
                                        requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
                                    }*/
                                 if (ContextCompat.checkSelfPermission(
-                                        context,
-                                        Manifest.permission.CALL_PHONE
+                                        context, Manifest.permission.CALL_PHONE
                                     ) == PackageManager.PERMISSION_GRANTED
                                 ) {
 
@@ -707,35 +749,32 @@ fun ContactDetail(navController: NavController, num: String?, name: String?) {
                 ) {
 
 
-                    Icon(
-                        imageVector = Icons.Outlined.Call,
+                    Icon(imageVector = Icons.Outlined.Call,
                         contentDescription = "",
                         modifier = Modifier
                             .padding(end = 7.dp, bottom = 5.dp)
                             .size(24.dp)
                             .clickable {
                                 if (ActivityCompat.checkSelfPermission(
-                                        context,
-                                        Manifest.permission.CALL_PHONE
+                                        context, Manifest.permission.CALL_PHONE
                                     ) == PackageManager.PERMISSION_GRANTED
                                 ) {
                                     initiateCall(
-                                        context,
-                                        name
+                                        context, name
                                     )
                                 } else {
                                     requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
                                 }
 
-                            }
-                    )
+                            })
                     Column(
                         modifier = Modifier.wrapContentWidth(),
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         Text(
-                            text = name?.replace("()", "").toString(), fontSize = 20.sp,
+                            text = name?.replace("()", "").toString(),
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.W400
                         )
                         Row(
@@ -778,9 +817,7 @@ private fun initiateCall(context: Context, name: String?) {
 
 inline fun randomColor(): Color {
     val color = Color(
-        red = Random.nextInt(256),
-        green = Random.nextInt(256),
-        blue = Random.nextInt(256)
+        red = Random.nextInt(256), green = Random.nextInt(256), blue = Random.nextInt(256)
     ).copy(alpha = 0.5f)
     return color
 }
