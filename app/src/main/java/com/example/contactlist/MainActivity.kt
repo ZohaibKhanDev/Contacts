@@ -526,13 +526,14 @@ fun ContactList(
                     }
 
                     if (floatingButton) {
-                        var name by remember {
+                        var firstName by remember {
                             mutableStateOf("")
                         }
 
                         var number by remember {
                             mutableStateOf("")
                         }
+
                         val scope = rememberCoroutineScope()
                         val context= LocalContext.current
                         AlertDialog(
@@ -550,19 +551,23 @@ fun ContactList(
                                      })
                             },
                             title = {
-                                OutlinedTextField(value = name, onValueChange = {
-                                    name = it
+                                OutlinedTextField(value = firstName, onValueChange = {
+                                    firstName= it
                                 }, placeholder = {
-                                    Text(text = "Name")
-                                }, singleLine = true)
+                                    Text(text = "Enter Name")
+                                }, singleLine = true,
+                                    textStyle = TextStyle(fontSize = 20.sp)
+                                    )
                             },
                             text = {
                                 OutlinedTextField(value = number, onValueChange = {
                                     number = it
                                 }, placeholder = {
                                     Text(text = "Enter Number")
-                                }, singleLine = true)
-                            },
+                                }, singleLine = true, textStyle = TextStyle(
+                                    fontSize = 20.sp
+                                ))
+                            }
                         )
                     }
 
