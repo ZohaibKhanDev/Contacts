@@ -14,6 +14,7 @@
 - **Merge duplicates**
 - **Contact import**
 - **Smart Tagging**
+- **Voice Searc**
 
 
 
