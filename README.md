@@ -18,7 +18,7 @@
 - **Instant Messaging**
 - **Contact Sync**
 - **Photo Integration**
-
+- **Location Sharing**
 
 
 ## 🤝 Connect with Me
