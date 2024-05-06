@@ -13,6 +13,7 @@
 - **Profile photos**
 - **Merge duplicates**
 - **Contact import**
+- **Smart Tagging**
 
 
 
