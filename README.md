@@ -15,6 +15,7 @@
 - **Contact import**
 - **Smart Tagging**
 - **Voice Searc**
+- **Instant Messaging**
 
 
 
