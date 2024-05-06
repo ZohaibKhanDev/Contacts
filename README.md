@@ -17,6 +17,7 @@
 - **Voice Searc**
 - **Instant Messaging**
 - **Contact Sync**
+- **Photo Integration**
 
 
 
