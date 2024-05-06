@@ -16,6 +16,7 @@
 - **Smart Tagging**
 - **Voice Searc**
 - **Instant Messaging**
+- **Contact Sync**
 
 
 
