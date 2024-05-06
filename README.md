@@ -3,16 +3,16 @@
 
 
 ## 🚀 Key Features
-- Quick search
-- Group messaging
-- Contact syncing
-- Custom labels
-- Birthday reminders
-- Call history
-- Contact backup
-- Profile photos
-- Merge duplicates
-- Contact import
+- **Quick search**
+- **Group messaging**
+- **Contact syncing**
+- **Custom labels**
+- **Birthday reminders**
+- **Call history**
+- **Contact backup**
+- **Profile photos**
+- **Merge duplicates**
+- **Contact import**
 
 
 
