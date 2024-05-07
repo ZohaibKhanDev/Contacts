@@ -24,6 +24,7 @@
 - **Sync Across Devices**
 - **Integration with Social Media**
 - **Contact Groups and Tags**
+- **Backup and Restore**
 
 
 ## 🤝 Connect with Me
