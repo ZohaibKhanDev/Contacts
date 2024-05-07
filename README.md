@@ -26,6 +26,7 @@
 - **Contact Groups and Tags**
 - **Backup and Restore**
 - **Advanced Search and Filter**
+- **Contact Sharing**
 
 
 ## 🤝 Connect with Me
