@@ -19,6 +19,8 @@
 - **Contact Sync**
 - **Photo Integration**
 - **Location Sharing**
+- **Smart Contact Management**
+- **
 
 
 ## 🤝 Connect with Me
