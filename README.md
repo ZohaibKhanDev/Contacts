@@ -21,6 +21,7 @@
 - **Location Sharing**
 - **Smart Contact Management**
 - **Customizable Contact Fields**
+- **Sync Across Devices**
 
 
 ## 🤝 Connect with Me
