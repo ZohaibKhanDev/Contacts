@@ -25,6 +25,7 @@
 - **Integration with Social Media**
 - **Contact Groups and Tags**
 - **Backup and Restore**
+- **Advanced Search and Filter**
 
 
 ## 🤝 Connect with Me
