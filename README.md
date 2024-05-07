@@ -20,7 +20,7 @@
 - **Photo Integration**
 - **Location Sharing**
 - **Smart Contact Management**
-- **
+- **Customizable Contact Fields**
 
 
 ## 🤝 Connect with Me
