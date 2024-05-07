@@ -23,6 +23,7 @@
 - **Customizable Contact Fields**
 - **Sync Across Devices**
 - **Integration with Social Media**
+- **Contact Groups and Tags**
 
 
 ## 🤝 Connect with Me
