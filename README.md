@@ -28,6 +28,7 @@
 - **Advanced Search and Filter**
 - **Contact Sharing**
 - **Birthday and Event Reminders**
+- **Security and Privacy Features**
 
 
 ## 🤝 Connect with Me
