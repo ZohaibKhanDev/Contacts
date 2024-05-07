@@ -27,6 +27,7 @@
 - **Backup and Restore**
 - **Advanced Search and Filter**
 - **Contact Sharing**
+- **Birthday and Event Reminders**
 
 
 ## 🤝 Connect with Me
