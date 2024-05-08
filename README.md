@@ -2,6 +2,9 @@
 ## Overview
 
 
+Streamline your connections with our intuitive contact app, effortlessly managing all your important contacts in one place.
+
+
 ## 🚀 Key Features
 - **Quick search**
 - **Group messaging**
