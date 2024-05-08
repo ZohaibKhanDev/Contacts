@@ -2,7 +2,7 @@
 ## Overview
 
 
-Streamline your connections with our intuitive contact app, effortlessly managing all your important contacts in one place.
+Streamline your connections with our intuitive contact app, effortlessly managing all your important contacts in one place.Never miss a beat with instant access to vital information, including phone numbers, emails, and addresses
 
 
 ## 🚀 Key Features
