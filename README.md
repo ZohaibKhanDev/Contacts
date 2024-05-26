@@ -2,7 +2,7 @@
 ## Overview
 
 
-Streamline your connections with our intuitive contact app, effortlessly managing all your important contacts in one place.Never miss a beat with instant access to vital information, including phone numbers, emails, and addresses.Simplify your life by categorizing contacts into custom groups, making it easy to reach the right people at the right time.Stay organized with built-in reminders and notes, ensuring you never forget important dates or details.Experience seamless integration across devices, ensuring your contacts are always at your fingertips,wherever you go.
+Streamline your connections with our intuitive contact app, effortlessly managing all your important contacts in one place.Never miss a beat with instant access to vital information, including phone numbers, emails, and addresses.Simplify your life by categorizing contacts into custom groups, making it easy to reach the right people at the right time.Stay organized with built-in reminders and notes, ensuring you never forget important dates or details.Experience seamless integration across devices, ensuring your contacts are always at your fingertips,wherever you go..
 
 
 ## 🚀 Key Features
